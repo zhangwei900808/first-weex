@@ -48,7 +48,7 @@
 	var __weex_style__ = __webpack_require__(2)
 	var __weex_script__ = __webpack_require__(3)
 
-	__weex_define__('@weex-component/d83561b7f4e231b755fd4279c25bd6c7', [], function(__weex_require__, __weex_exports__, __weex_module__) {
+	__weex_define__('@weex-component/b05925bf1265f087218c1ada274d5940', [], function(__weex_require__, __weex_exports__, __weex_module__) {
 
 	    __weex_script__(__weex_module__, __weex_exports__, __weex_require__)
 	    if (__weex_exports__.__esModule && __weex_exports__.default) {
@@ -61,42 +61,78 @@
 
 	})
 
-	__weex_bootstrap__('@weex-component/d83561b7f4e231b755fd4279c25bd6c7',undefined,undefined)
+	__weex_bootstrap__('@weex-component/b05925bf1265f087218c1ada274d5940',undefined,undefined)
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "type": "div",
-	  "classList": [
-	    "ct"
-	  ],
-	  "style": {
-	    "height": function () {return this.ctHeight}
-	  },
+	  "type": "scroller",
 	  "children": [
 	    {
-	      "type": "image",
-	      "classList": [
-	        "img"
-	      ],
-	      "style": {
-	        "width": 400,
-	        "height": 400
-	      },
+	      "type": "wxc-panel",
 	      "attr": {
-	        "src": function () {return this.img}
-	      }
+	        "title": "Toast",
+	        "type": "primary"
+	      },
+	      "children": [
+	        {
+	          "type": "wxc-button",
+	          "attr": {
+	            "type": "primary",
+	            "value": "Toast"
+	          },
+	          "events": {
+	            "click": "toast"
+	          }
+	        }
+	      ]
 	    },
 	    {
-	      "type": "text",
-	      "style": {
-	        "fontSize": 42
-	      },
+	      "type": "wxc-panel",
 	      "attr": {
-	        "value": "Hello Weex!"
-	      }
+	        "title": "Dialog",
+	        "type": "primary"
+	      },
+	      "children": [
+	        {
+	          "type": "wxc-button",
+	          "attr": {
+	            "type": "success",
+	            "value": "Alert"
+	          },
+	          "events": {
+	            "click": "alert"
+	          },
+	          "style": {
+	            "marginBottom": 20
+	          }
+	        },
+	        {
+	          "type": "wxc-button",
+	          "attr": {
+	            "type": "primary",
+	            "value": "Confirm"
+	          },
+	          "events": {
+	            "click": "confirm"
+	          },
+	          "style": {
+	            "marginBottom": 20
+	          }
+	        },
+	        {
+	          "type": "wxc-button",
+	          "attr": {
+	            "type": "warning",
+	            "value": "Prompt"
+	          },
+	          "events": {
+	            "click": "prompt"
+	          }
+	        }
+	      ]
 	    }
 	  ]
 	}
@@ -105,30 +141,71 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = {
-	  "ct": {
-	    "width": 750,
-	    "alignItems": "center",
-	    "justifyContent": "center"
-	  },
-	  "img": {
-	    "marginBottom": 20
-	  }
-	}
+	module.exports = {}
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
 
+	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../weex-components\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	module.exports = {
-	  data: function () {return {
-	    ctHeight: 800,
-	    img: '//gw.alicdn.com/tps/i2/TB1DpsmMpXXXXabaXXX20ySQVXX-512-512.png_400x400.jpg'
-	  }},
-	  ready: function ready() {
-	    this.ctHeight = this.$getConfig().env.deviceHeight;
+	  data: function () {return {}},
+	  methods: {
+	    toast: function toast(msg, duration) {
+	      if (!msg || typeof msg !== 'string') {
+	        msg = 'I am Toast show!';
+	      }
+
+	      duration = duration || 2;
+	      var modal = __weex_require__('@weex-module/modal');
+	      modal.toast({
+	        'message': msg,
+	        'duration': duration
+	      });
+	    },
+	    alert: function alert(msg, okTitle, cancelTitle) {
+	      var self = this;
+	      if (!msg || typeof msg !== 'string') {
+	        msg = "I am Alert!";
+	      }
+	      var modal = __weex_require__('@weex-module/modal');
+	      modal.alert({
+	        'message': msg,
+	        'okTitle': okTitle,
+	        'cancelTitle': cancelTitle
+	      }, function () {
+	        self.toast("Click Alert OK Bnt!!");
+	      });
+	    },
+	    confirm: function confirm(msg, okTitle, cancelTitle) {
+	      var self = this;
+	      if (!msg || typeof msg !== 'string') {
+	        msg = "I am Confirm!";
+	      }
+	      var modal = __weex_require__('@weex-module/modal');
+	      okTitle = okTitle || "OK";
+	      cancelTitle = cancelTitle || "Cancel";
+	      modal.confirm({
+	        'message': msg,
+	        'okTitle': okTitle,
+	        'cancelTitle': cancelTitle
+	      }, function (result) {
+	        self.toast("Click Confirm  " + result);
+	      });
+	    },
+	    prompt: function prompt() {
+	      var self = this;
+	      var modal = __weex_require__('@weex-module/modal');
+	      modal.prompt({
+	        'message': 'I am Prompt!',
+	        'okTitle': 'ok',
+	        'cancelTitle': 'cancel'
+	      }, function (result) {
+	        self.toast("Click Prompt  " + result);
+	      });
+	    }
 	  }
 	};}
 	/* generated by weex-loader */
