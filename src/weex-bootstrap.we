@@ -4,6 +4,7 @@
       <div class="slider-pages" repeat="{{itemList}}" onclick="goWeexSite" >
         <image class="thumb" src="{{pictureUrl}}"></image>
         <text class="title">{{title}}</text>
+        <text>{{count}}</text>
       </div>
     </slider>
 
@@ -46,9 +47,9 @@ module.exports = {
       isShowIndicators:"true",
       isAutoPlay:"true",
       itemList: [
-        {title: 'Java', pictureUrl: 'http://t.cn/RGE3uo9'},
-        {title: 'Objective C', pictureUrl: 'http://t.cn/RGE31hq'},
-        {title: 'JavaScript', pictureUrl: 'http://t.cn/RGE3AJt'}
+        {title: 'Java', pictureUrl: 'http://t.cn/RGE3uo9',count:1},
+        {title: 'Objective C', pictureUrl: 'http://t.cn/RGE31hq',count:2},
+        {title: 'JavaScript', pictureUrl: 'http://t.cn/RGE3AJt',count:3}
       ]
     },
     methods: {
